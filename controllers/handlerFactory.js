@@ -1,8 +1,8 @@
 const ApiFeatures = require("../utils/ApiFeatues");
 const catchAsync = require("../utils/catchAsync");
 
-exports.getAll = (Model) => {
-  return catchAsync(async (req, res) => {
+exports.getAll = (Model) =>
+  catchAsync(async (req, res) => {
     const features = new ApiFeatures(Model.find(), req.query)
       .filter()
       .sort()
@@ -19,9 +19,8 @@ exports.getAll = (Model) => {
       },
     });
   });
-};
 
-exports.getOne = (Model) => {
+exports.getOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findById(req.params.id);
 
@@ -34,7 +33,6 @@ exports.getOne = (Model) => {
       },
     });
   });
-};
 
 exports.createOne = (Model) => {
   catchAsync(async (req, res, next) => {
