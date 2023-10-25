@@ -28,6 +28,11 @@ const moviewSchema = new mongoose.Schema({
     },
   },
 
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+
   rating: {
     type: String,
     required: [true, "A movie must have a rating"],

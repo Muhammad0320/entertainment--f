@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const Movie = require("../models/MovieModel");
+const Movie = require("../models/movieModel");
 // const User = require('../models/userModel');
 
 dotenv.config({ path: "./config.env" });
@@ -15,7 +15,7 @@ const DB = process.env.DATABASE.replace(
 mongoose.connect(DB).then(() => console.log("DB connection successful"));
 
 const movies = JSON.parse(fs.readFileSync(`${__dirname}/movies.json`, "utf-8"));
-const users = JSON.parse(fs.readFileSync(`${__dirname}/user.json`, "utf-8"));
+// const users = JSON.parse(fs.readFileSync(`${__dirname}/user.json`, "utf-8"));
 
 const importData = async () => {
   try {
