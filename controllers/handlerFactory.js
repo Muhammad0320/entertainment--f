@@ -28,3 +28,18 @@ exports.getOne = (Model) => {
     });
   });
 };
+
+exports.createOne = (Model) => {
+  catchAsync(async (req, res, next) => {
+    const newDoc = await Model.create(req.body);
+
+    if (!newDoc) return next();
+
+    res.status(200).json({
+      status: 200,
+      data: {
+        documement: newDoc,
+      },
+    });
+  });
+};
