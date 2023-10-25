@@ -12,6 +12,8 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/v1/movies", movieRoutes);
 
 module.exports = app;
