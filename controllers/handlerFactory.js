@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 
 exports.getAll = (Model) => {
   catchAsync(async (req, res) => {
-    const features = new ApiFeatures(req.find(), req.query)
+    const features = new ApiFeatures(Model.find(), req.query)
       .filter()
       .sort()
       .limitField()
