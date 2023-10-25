@@ -1,4 +1,5 @@
 const Movie = require("../model/movieModel");
+const ApiFeatures = require("../utils/ApiFeatues");
 const catchAsync = require("../utils/catchAsync");
 
 const {
@@ -9,12 +10,6 @@ const {
   deleteOne,
 } = require("./handlerFactory");
 
-exports.textRoute = catchAsync(async (req, res, next) => {
-  const allMovies = await Movie.find();
-
-  console.log(allMovies);
-});
-
 exports.createMovie = createOne(Movie);
 
 exports.getMovies = getAll(Movie);
@@ -24,3 +19,21 @@ exports.getMovie = getOne(Movie);
 exports.updateMovie = updateOne(Movie);
 
 exports.deleteMovie = deleteOne(Movie);
+
+exports.testHandler = catchAsync(async (req, res) => {
+  const features = new ApiFeatures(Movie.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .paginate();
+
+  const doc = await features.query;
+
+  res.status(200).json({
+    status: "success",
+    result: doc.length,
+    data: {
+      document: doc,
+    },
+  });
+});

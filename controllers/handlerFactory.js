@@ -2,7 +2,7 @@ const ApiFeatures = require("../utils/ApiFeatues");
 const catchAsync = require("../utils/catchAsync");
 
 exports.getAll = (Model) => {
-  catchAsync(async (req, res) => {
+  return catchAsync(async (req, res) => {
     const features = new ApiFeatures(Model.find(), req.query)
       .filter()
       .sort()
