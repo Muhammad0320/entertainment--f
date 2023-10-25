@@ -16,7 +16,7 @@ exports.getAll = (Model) => {
 
 exports.getOne = (Model) => {
   catchAsync(async (req, res, next) => {
-    const doc = Model.findById(req.params.id);
+    const doc = await Model.findById(req.params.id);
 
     if (!doc) return next();
 
@@ -36,9 +36,27 @@ exports.createOne = (Model) => {
     if (!newDoc) return next();
 
     res.status(200).json({
-      status: 200,
+      status: "success",
       data: {
         documement: newDoc,
+      },
+    });
+  });
+};
+
+exports.updateOne = (Model) => {
+  catchAsync(async (req, res, next) => {
+    const updatedDoc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedDoc) return next();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        updatedDocument: updatedDoc,
       },
     });
   });
