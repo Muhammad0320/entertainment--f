@@ -35,7 +35,7 @@ exports.createOne = (Model) => {
 
     if (!newDoc) return next();
 
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
       data: {
         documement: newDoc,
@@ -58,6 +58,18 @@ exports.updateOne = (Model) => {
       data: {
         updatedDocument: updatedDoc,
       },
+    });
+  });
+};
+
+exports.deleteOne = (Model) => {
+  catchAsync(async (req, res, next) => {
+    const deletedDoc = await Model.findByIdAndDelete(req.params.id);
+
+    if (!deletedDoc) return next();
+
+    res.status(204).json({
+      status: "success",
     });
   });
 };
