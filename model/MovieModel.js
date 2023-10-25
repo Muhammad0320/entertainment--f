@@ -50,3 +50,7 @@ const moviewSchema = new mongoose.Schema({
     },
   },
 });
+
+const Movie = mongoose.model("Movie", moviewSchema);
+
+module.exports = Movie;
