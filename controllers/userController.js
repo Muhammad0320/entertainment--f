@@ -4,7 +4,7 @@ const {
   getAll,
   getOne,
   updateOne,
-  deleteOne,
+  deleteOne
 } = require("./handlerFactory");
 
 exports.createUser = createOne(User);

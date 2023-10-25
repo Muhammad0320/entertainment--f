@@ -5,7 +5,7 @@ const {
   getAll,
   getOne,
   updateOne,
-  deleteOne,
+  deleteOne
 } = require("./handlerFactory");
 
 exports.createMovie = createOne(Movie);
