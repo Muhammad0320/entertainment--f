@@ -23,6 +23,18 @@ class ApiFeatures {
 
     return this;
   }
+
+  sort() {
+    if (this.queryString.sort) {
+      const sortBy = this.queryString.replaceAll(",", " ");
+
+      this.query = this.query.sort(sortBy);
+    } else {
+      this.query = this.query.sort("-createdAt");
+    }
+
+    return this;
+  }
 }
 
 module.exports = ApiFeatures;
