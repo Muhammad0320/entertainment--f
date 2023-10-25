@@ -2,7 +2,8 @@ const fs = require("fs");
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const Movie = require("../models/movieModel");
+const Movie = require("../model/movieModel");
+
 // const User = require('../models/userModel');
 
 dotenv.config({ path: "./config.env" });

@@ -8,8 +8,8 @@ const moviewSchema = new mongoose.Schema({
 
   year: {
     type: Number,
-    required: true,
-    max: [4, " Movie's year should not be over 4 numbers"],
+    max: [5, "Movie's year should not be over 4 numbers"],
+    required: [true, "A movie must have a year of production"],
   },
 
   isTrending: {
