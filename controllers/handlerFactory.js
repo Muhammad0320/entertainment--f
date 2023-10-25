@@ -1,8 +1,15 @@
+const ApiFeatures = require("../utils/ApiFeatues");
 const catchAsync = require("../utils/catchAsync");
 
 exports.getAll = (Model) => {
   catchAsync(async (req, res) => {
-    const doc = await Model.find();
+    const features = new ApiFeatures(req.find(), req.query)
+      .filter()
+      .sort()
+      .limitField()
+      .paginate();
+
+    const doc = await features.query;
 
     res.status(200).json({
       status: "success",
