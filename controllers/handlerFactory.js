@@ -48,7 +48,7 @@ exports.createOne = (Model) =>
     });
   });
 
-exports.updateOne = (Model) => {
+exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const updatedDoc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -64,9 +64,8 @@ exports.updateOne = (Model) => {
       },
     });
   });
-};
 
-exports.deleteOne = (Model) => {
+exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const deletedDoc = await Model.findByIdAndDelete(req.params.id);
 
@@ -76,4 +75,3 @@ exports.deleteOne = (Model) => {
       status: "success",
     });
   });
-};
