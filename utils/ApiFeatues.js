@@ -35,6 +35,18 @@ class ApiFeatures {
 
     return this;
   }
+
+  limitField() {
+    if (this.queryString.limit) {
+      const limitField = this.queryString.limit.replace(",", " ");
+
+      this.query = this.query.select(limitField);
+    } else {
+      this.query = this.query.select("-__v");
+    }
+
+    return this;
+  }
 }
 
 module.exports = ApiFeatures;
