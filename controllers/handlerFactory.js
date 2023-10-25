@@ -34,7 +34,7 @@ exports.getOne = (Model) =>
     });
   });
 
-exports.createOne = (Model) => {
+exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const newDoc = await Model.create(req.body);
 
@@ -47,7 +47,6 @@ exports.createOne = (Model) => {
       },
     });
   });
-};
 
 exports.updateOne = (Model) => {
   catchAsync(async (req, res, next) => {
