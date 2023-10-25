@@ -9,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getMovies).post(createMovie);
+router.route("/").post(createMovie);
 
 router.route("/:id").get(getMovie).patch(updateMovie).delete(deleteMovie);
 
