@@ -1,6 +1,4 @@
 const Movie = require("../model/movieModel");
-const ApiFeatures = require("../utils/ApiFeatues");
-const catchAsync = require("../utils/catchAsync");
 
 const {
   createOne,
