@@ -5,16 +5,12 @@ const {
   getMovie,
   updateMovie,
   deleteMovie,
-  testHandler,
 } = require("../controllers/movieController");
 
 const router = express.Router();
 
-// router.route("/").post(createMovie).get(getMovies);
-router.route("/").get(getMovies);
+router.route("/").post(createMovie).get(getMovies);
 
-// router.route("/:id").get(getMovie).patch(updateMovie).delete(deleteMovie);
-
-router.route("/").get(testHandler);
+router.route("/:id").get(getMovie).patch(updateMovie).delete(deleteMovie);
 
 module.exports = router;
