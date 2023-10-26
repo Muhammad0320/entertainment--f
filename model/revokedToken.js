@@ -6,3 +6,7 @@ const revokedTokenSchema = new mongoose.Schema({
     required: true
   }
 });
+
+const RevokedToken = mongoose.model("RevokedToken", revokedTokenSchema);
+
+module.exports = RevokedToken;
