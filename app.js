@@ -20,7 +20,12 @@ app.use("/api/v1/movies", movieRoutes);
 app.use("/api/v1/users", userRoutes);
 
 app.all("*", (req, res, next) => {
-  next(new AppError(`There is no route with this URL ${req.originalUrl}`, 404));
+  return next(
+    new AppError(
+      `There is no route with this URL ${req.originalUrl} on this server`,
+      404
+    )
+  );
 });
 
 module.exports = app;
