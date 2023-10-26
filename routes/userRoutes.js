@@ -11,7 +11,8 @@ const {
   login,
   protect,
   restrictTo,
-  verifyToken
+  verifyToken,
+  logout
 } = require("../controllers/authController");
 
 const router = express.Router();
@@ -20,6 +21,8 @@ router.route("/login").post(login);
 router.route("/signup").post(signup);
 
 router.use(verifyToken, protect, restrictTo("admin"));
+
+router.route("/logout").post(logout);
 
 router
   .route("/")
