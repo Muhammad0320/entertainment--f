@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const bookmarkSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: [true, "A movies must be bookmarked by a user"]
   },
 
   movie: {
     type: mongoose.Schema.ObjectId,
-    ref: "Movie"
+    ref: "Movie",
+    required: [true, "A bookmark must belog to a movie"]
   },
 
   createdAt: {
