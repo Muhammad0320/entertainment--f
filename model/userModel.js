@@ -15,6 +15,16 @@ const userSchema = mongoose.Schema({
     default: Date.now()
   },
 
+  role: {
+    type: String,
+    default: "user",
+    enum: {
+      values: ["user", "admin"],
+
+      message: "role should either be a user or an admin"
+    }
+  },
+
   email: {
     type: String,
     unique: true,
