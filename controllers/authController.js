@@ -39,7 +39,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   if (
     !user ||
-    !(await User.checkCorrectPassword(req.body.password, user.password))
+    !(await user.checkCorrectPassword(req.body.password, user.password))
   )
     return next();
 
