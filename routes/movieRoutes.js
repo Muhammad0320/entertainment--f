@@ -6,13 +6,16 @@ const {
   updateMovie,
   deleteMovie
 } = require("../controllers/movieController");
+const { protect, restrictTo } = require("../controllers/authController");
 
 const router = express.Router();
 
 router
   .route("/")
-  .post(createMovie)
+  .post(protect, restrictTo("admin"), createMovie)
   .get(getMovies);
+
+router.use(protect, restrictTo("admin"));
 
 router
   .route("/:id")
