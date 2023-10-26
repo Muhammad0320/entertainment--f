@@ -102,3 +102,15 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+exports.restrictTo = catchAsync(async (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You are not authorized to perform this action", 401)
+      );
+    }
+
+    next();
+  };
+});
