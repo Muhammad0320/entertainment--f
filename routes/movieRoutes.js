@@ -6,7 +6,11 @@ const {
   updateMovie,
   deleteMovie
 } = require("../controllers/movieController");
-const { protect, restrictTo } = require("../controllers/authController");
+const {
+  protect,
+  restrictTo,
+  verifyToken
+} = require("../controllers/authController");
 
 const bookmarkRoutes = require("../routes/bookmarkRoutes");
 
@@ -16,7 +20,7 @@ router.route("/:id").get(getMovie);
 
 router.route("/id").get(getMovies);
 
-router.use(protect);
+router.use(verifyToken, protect);
 
 router.use("/:movieId/bookmarks", bookmarkRoutes);
 

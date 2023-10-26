@@ -10,7 +10,8 @@ const {
   signup,
   login,
   protect,
-  restrictTo
+  restrictTo,
+  verifyToken
 } = require("../controllers/authController");
 
 const router = express.Router();
@@ -18,7 +19,7 @@ const router = express.Router();
 router.route("/login").post(login);
 router.route("/signup").post(signup);
 
-router.use(protect, restrictTo("admin"));
+router.use(verifyToken, protect, restrictTo("admin"));
 
 router
   .route("/")

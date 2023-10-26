@@ -92,8 +92,12 @@ exports.logout = catchAsync(async (req, res, next) => {
 exports.verifyToken = catchAsync(async (req, res, next) => {
   const token = getToken(req);
 
+  // Check if there is even a token
+
   if (!token)
     return next(new AppError("You are not logged In! Login to gain access."));
+
+  // check if token isn't among revoked ones
 
   const isRevokedToken = await RevokedToken.findOne({ token });
 
@@ -107,15 +111,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   // Get token
   const token = getToken(req);
 
-  if (!token)
-    return next(new AppError("You are not logged it! Login in to gain access"));
-
   // Verify token and decode
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   if (!decoded)
     return next(new AppError("Invalid Token, please login again", 403));
+
+  // check if there is user with the payload from the token
 
   const currentUser = await User.findById(decoded.id);
 
