@@ -5,7 +5,8 @@ const {
   createBookmark,
 
   deleteBookmark,
-  addUserMovieId
+  addUserMovieId,
+  getMyBookmarks
 } = require("../controllers/bookmarkController");
 const { protect, verifyToken } = require("../controllers/authController");
 
@@ -16,6 +17,8 @@ router.route("/").get(getBookmarks);
 router.route("/:id").get(getBookmark);
 
 router.use(verifyToken, protect);
+
+router.route("/my-bookmarks").get(getMyBookmarks);
 
 router.route("/").post(addUserMovieId, createBookmark);
 
