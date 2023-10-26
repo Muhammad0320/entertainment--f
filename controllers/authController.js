@@ -89,6 +89,20 @@ exports.logout = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.verifyToken = catchAsync(async (req, res, next) => {
+  const token = getToken(req);
+
+  if (!token)
+    return next(new AppError("You are not logged In! Login to gain access."));
+
+  const isRevokedToken = await RevokedToken.findOne({ token });
+
+  if (isRevokedToken)
+    return next(new AppError(" Invalid token, please login again "));
+
+  next();
+});
+
 exports.protect = catchAsync(async (req, res, next) => {
   // Get token
   const token = getToken(req);
