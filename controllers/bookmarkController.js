@@ -27,6 +27,17 @@ exports.createBookmarkOnMovie = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getMyBookmarks = catchAsync(async (req, res, next) => {
+  const myBookmarks = await Bookmark.find({ user: req.user._id });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      bookmarks: myBookmarks
+    }
+  });
+});
+
 exports.createBookmark = createOne(Bookmark);
 
 exports.getBookmarks = getAll(Bookmark);
