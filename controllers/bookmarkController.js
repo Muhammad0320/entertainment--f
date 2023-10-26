@@ -1,5 +1,6 @@
 const Bookmark = require("../model/bookmarkModel");
 const catchAsync = require("../utils/catchAsync");
+const { createOne, getAll } = require("./handlerFactory");
 
 exports.addUserMovieId = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user._id;
@@ -19,3 +20,7 @@ exports.createBookmarkOnMovie = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.createBookmark = createOne(Bookmark);
+
+exports.getBookmarks = getAll(Bookmark);
