@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/movies", movieRoutes);
 app.use("/api/v1/users", userRoutes);
-app.use("/api/v1/bookmark", bookmarkRoutes);
+app.use("/api/v1/bookmarks", bookmarkRoutes);
 
 app.all("*", (req, res, next) => {
   return next(

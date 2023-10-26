@@ -18,7 +18,7 @@ router.route("/id").get(getMovies);
 
 router.use(protect);
 
-router.use("/bookmark/:movieId", bookmarkRoutes);
+router.use("/:movieId/bookmarks", bookmarkRoutes);
 
 router.route("/").post(restrictTo("admin"), createMovie);
 
