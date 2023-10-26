@@ -3,7 +3,6 @@ const catchAsync = require("../utils/catchAsync");
 const {
   createOne,
   getAll,
-  getOne,
 
   deleteOne
 } = require("./handlerFactory");
