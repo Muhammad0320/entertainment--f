@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const moviewSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, "A movie must have a title"],
+    required: [true, "A movie must have a title"]
   },
 
   year: {
     type: Number,
     max: [2023, "Movie's year should not be over 2023 numbers"],
-    required: [true, "A movie must have a year of production"],
+    required: [true, "A movie must have a year of production"]
   },
 
   isTrending: {
     type: Boolean,
 
-    default: false,
+    default: false
   },
 
   category: {
@@ -24,13 +24,13 @@ const moviewSchema = new mongoose.Schema({
     enum: {
       values: ["Movie", "TV Series"],
 
-      message: "Movie's category should either be a movie or a tv series",
-    },
+      message: "Movie's category should either be a movie or a tv series"
+    }
   },
 
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now()
   },
 
   rating: {
@@ -40,20 +40,20 @@ const moviewSchema = new mongoose.Schema({
     enum: {
       values: ["PG", "E", "18+"],
 
-      message: "A movie's rating should either be PG, E or 18+ ",
-    },
+      message: "A movie's rating should either be PG, E or 18+ "
+    }
   },
 
   thumbnail: {
     trending: {
-      type: String,
+      type: String
     },
 
     regular: {
       type: String,
-      required: [true, "A movie must have a regular thumbnail"],
-    },
-  },
+      required: [true, "A movie must have a regular thumbnail"]
+    }
+  }
 });
 
 const Movie = mongoose.model("Movie", moviewSchema);
