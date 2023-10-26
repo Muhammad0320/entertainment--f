@@ -1,7 +1,7 @@
 const ApiFeatures = require("../utils/ApiFeatues");
 const catchAsync = require("../utils/catchAsync");
 
-exports.getAll = (Model) =>
+exports.getAll = Model =>
   catchAsync(async (req, res) => {
     const features = new ApiFeatures(Model.find(), req.query)
       .filter()
@@ -15,12 +15,12 @@ exports.getAll = (Model) =>
       status: "success",
       result: doc.length,
       data: {
-        document: doc,
-      },
+        document: doc
+      }
     });
   });
 
-exports.getOne = (Model) =>
+exports.getOne = Model =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findById(req.params.id);
 
@@ -29,12 +29,12 @@ exports.getOne = (Model) =>
     res.status(200).json({
       status: "success",
       data: {
-        document: doc,
-      },
+        document: doc
+      }
     });
   });
 
-exports.createOne = (Model) =>
+exports.createOne = Model =>
   catchAsync(async (req, res, next) => {
     const newDoc = await Model.create(req.body);
 
@@ -43,16 +43,16 @@ exports.createOne = (Model) =>
     res.status(201).json({
       status: "success",
       data: {
-        documement: newDoc,
-      },
+        documement: newDoc
+      }
     });
   });
 
-exports.updateOne = (Model) =>
+exports.updateOne = Model =>
   catchAsync(async (req, res, next) => {
     const updatedDoc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true,
+      runValidators: true
     });
 
     if (!updatedDoc) return next();
@@ -60,18 +60,18 @@ exports.updateOne = (Model) =>
     res.status(200).json({
       status: "success",
       data: {
-        updatedDocument: updatedDoc,
-      },
+        updatedDocument: updatedDoc
+      }
     });
   });
 
-exports.deleteOne = (Model) =>
+exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
     const deletedDoc = await Model.findByIdAndDelete(req.params.id);
 
     if (!deletedDoc) return next();
 
     res.status(204).json({
-      status: "success",
+      status: "success"
     });
   });
