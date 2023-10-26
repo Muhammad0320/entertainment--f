@@ -33,3 +33,5 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   sendJwt(res, newUser, 201);
 });
+
+exports.login = catchAsync(async (req, res, next) => {});
