@@ -6,16 +6,23 @@ const {
   updateUser,
   deleteUser
 } = require("../controllers/userController");
-const { signup, login, protect } = require("../controllers/authController");
+const {
+  signup,
+  login,
+  protect,
+  restrictTo
+} = require("../controllers/authController");
 
 const router = express.Router();
 
 router.route("/login").post(login);
 router.route("/signup").post(signup);
 
+router.use(protect, restrictTo("admin"));
+
 router
   .route("/")
-  .get(protect, getUsers)
+  .get(getUsers)
   .post(createUser);
 
 router
