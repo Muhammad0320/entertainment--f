@@ -3,6 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 const User = require("../model/userModel");
 const { promisify } = require("util");
 const AppError = require("../utils/AppError");
+const RevokedToken = require("../model/revokedToken");
 
 const getToken = req => {
   let token;
@@ -77,7 +78,16 @@ exports.login = catchAsync(async (req, res, next) => {
   sendJwt(res, user, 200);
 });
 
-exports.logout = catchAsync(async (req, res, next) => {});
+exports.logout = catchAsync(async (req, res, next) => {
+  const token = getToken(req);
+
+  await RevokedToken.create({ token });
+
+  res.status(200).json({
+    status: "success",
+    message: "Logged out successfully"
+  });
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Get token
