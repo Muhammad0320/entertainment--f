@@ -4,7 +4,8 @@ const {
   createUser,
   getUSer,
   updateUser,
-  deleteUser
+  deleteUser,
+  getMe
 } = require("../controllers/userController");
 const {
   signup,
@@ -23,6 +24,8 @@ router.route("/signup").post(signup);
 router.use(verifyToken, protect);
 
 router.route("/logout").post(logout);
+
+router.route("/me").get(getMe);
 
 router.use(restrictTo("admin"));
 
