@@ -77,12 +77,14 @@ exports.login = catchAsync(async (req, res, next) => {
   sendJwt(res, user, 200);
 });
 
+exports.logout = catchAsync(async (req, res, next) => {});
+
 exports.protect = catchAsync(async (req, res, next) => {
   // Get token
   const token = getToken(req);
 
   if (!token)
-    return new AppError("You are not logged it! Login in to gain access");
+    return next(new AppError("You are not logged it! Login in to gain access"));
 
   // Verify token and decode
 
