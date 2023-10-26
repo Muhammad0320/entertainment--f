@@ -1,4 +1,5 @@
 const ApiFeatures = require("../utils/ApiFeatues");
+const AppError = require("../utils/AppError");
 const catchAsync = require("../utils/catchAsync");
 
 exports.getAll = Model =>
@@ -24,7 +25,7 @@ exports.getOne = Model =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findById(req.params.id);
 
-    if (!doc) return next();
+    if (!doc) return next(new AppError("There is movie with such id", 404));
 
     res.status(200).json({
       status: "success",
@@ -37,8 +38,6 @@ exports.getOne = Model =>
 exports.createOne = Model =>
   catchAsync(async (req, res, next) => {
     const newDoc = await Model.create(req.body);
-
-    if (!newDoc) return next();
 
     res.status(201).json({
       status: "success",
@@ -55,7 +54,8 @@ exports.updateOne = Model =>
       runValidators: true
     });
 
-    if (!updatedDoc) return next();
+    if (!updatedDoc)
+      return next(new AppError("There is movie with such id", 404));
 
     res.status(200).json({
       status: "success",
@@ -69,7 +69,8 @@ exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
     const deletedDoc = await Model.findByIdAndDelete(req.params.id);
 
-    if (!deletedDoc) return next();
+    if (!deletedDoc)
+      return next(new AppError("There is movie with such id", 404));
 
     res.status(204).json({
       status: "success"

@@ -10,6 +10,8 @@ const { protect, restrictTo } = require("../controllers/authController");
 
 const router = express.Router();
 
+router.route("/:id").get(getMovie);
+
 router
   .route("/")
   .post(protect, restrictTo("admin"), createMovie)
@@ -19,7 +21,6 @@ router.use(protect, restrictTo("admin"));
 
 router
   .route("/:id")
-  .get(getMovie)
   .patch(updateMovie)
   .delete(deleteMovie);
 
