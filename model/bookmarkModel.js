@@ -16,3 +16,7 @@ const bookmarkSchema = new mongoose.Schema({
     default: Date.now()
   }
 });
+
+const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
+
+module.exports = Bookmark;
