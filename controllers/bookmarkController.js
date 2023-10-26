@@ -1,3 +1,6 @@
+const Bookmark = require("../model/bookmarkModel");
+const catchAsync = require("../utils/catchAsync");
+
 exports.addUserMovieId = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user._id;
 
@@ -5,3 +8,14 @@ exports.addUserMovieId = (req, res, next) => {
 
   next();
 };
+
+exports.createBookmarkOnMovie = catchAsync(async (req, res, next) => {
+  const bookmark = await Bookmark.create(req.body);
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      bookmark
+    }
+  });
+});
