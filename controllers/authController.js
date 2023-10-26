@@ -35,9 +35,13 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-  const user = await User.find({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email });
 
-  if (!user || !(await User.checkCorrectPassword)) return next();
+  if (
+    !user ||
+    !(await User.checkCorrectPassword(req.body.password, user.password))
+  )
+    return next();
 
   sendJwt(res, user, 200);
 });
