@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const movieRoutes = require("./routes/movieRoutes");
 const userRoutes = require("./routes/userRoutes");
 const AppError = require("./utils/AppError");
+const globalErrorHandler = require("./controllers/errorController");
 
 const app = express();
 
@@ -27,5 +28,7 @@ app.all("*", (req, res, next) => {
     )
   );
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
