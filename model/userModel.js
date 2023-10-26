@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
     required: [true, "Please tell us yout name"]
   },
 
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  },
+
   email: {
     type: String,
     unique: true,
