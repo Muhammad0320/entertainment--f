@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../model/userModel");
 const { promisify } = require("util");
+const AppError = require("../utils/AppError");
 
 const getToken = req => {
   let token;
@@ -53,19 +54,25 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   const newUser = await User.create(userdata);
 
-  if (!newUser) return next();
-
   sendJwt(res, newUser, 201);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
+  const { email, password } = req.body;
 
-  if (
-    !user ||
-    !(await user.checkCorrectPassword(req.body.password, user.password))
-  )
-    return next();
+  if (!email || !password) {
+    return next(new AppError("Please provide an email and password"));
+  }
+
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user || !(await user.checkCorrectPassword(password, user.password)))
+    return next(
+      new AppError(
+        "Invalid login credentials, please check your email or password",
+        400
+      )
+    );
 
   sendJwt(res, user, 200);
 });
@@ -78,11 +85,15 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-  if (!decoded) return next();
+  if (!decoded)
+    return next(new AppError("Invalid Token, please login again", 403));
 
   const currentUser = await User.findById(decoded.id);
 
-  if (!currentUser) return next();
+  if (!currentUser)
+    return next(
+      new AppError("The user belonging this this token no longer exists", 400)
+    );
 
   req.user = currentUser;
 
