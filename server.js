@@ -6,7 +6,7 @@ dotenv.config({ path: "./config.env" });
 
 const app = require("./app");
 
-process.on("uncaughtException", (err) => {
+process.on("uncaughtException", err => {
   console.log("ERROR 🔥🔥💩, UNCAUGHT EXCEPTION");
   console.log(err.name, err.message);
 
@@ -26,7 +26,7 @@ const server = app.listen(port, () => {
   console.log(`App running on port ${port} `);
 });
 
-process.on("unhandledRejection", (err) => {
+process.on("unhandledRejection", err => {
   console.log("ERROR 🔥🔥💩", "UNHANDLED REJECTION");
 
   console.log(err.name, err.message);
