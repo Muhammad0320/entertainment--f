@@ -20,9 +20,11 @@ const router = express.Router();
 router.route("/login").post(login);
 router.route("/signup").post(signup);
 
-router.use(verifyToken, protect, restrictTo("admin"));
+router.use(verifyToken, protect);
 
 router.route("/logout").post(logout);
+
+router.use(restrictTo("admin"));
 
 router
   .route("/")
