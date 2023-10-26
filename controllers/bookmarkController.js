@@ -28,7 +28,11 @@ exports.createBookmarkOnMovie = catchAsync(async (req, res, next) => {
 });
 
 exports.getMyBookmarks = catchAsync(async (req, res, next) => {
+  console.log("okay");
+
   const myBookmarks = await Bookmark.find({ user: req.user._id });
+
+  console.log(myBookmarks);
 
   res.status(200).json({
     status: "success",
