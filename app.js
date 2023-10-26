@@ -4,6 +4,7 @@ const morgan = require("morgan");
 
 const movieRoutes = require("./routes/movieRoutes");
 const userRoutes = require("./routes/userRoutes");
+const bookmarkRoutes = require("./routes/bookmarkRoutes");
 const AppError = require("./utils/AppError");
 const globalErrorHandler = require("./controllers/errorController");
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/movies", movieRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/bookmark", bookmarkRoutes);
 
 app.all("*", (req, res, next) => {
   return next(
