@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 const User = require("../model/userModel");
 
 const sendJwt = (res, user, status) => {
-  const token = jwt.sign(user._id, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
   });
 
@@ -34,4 +34,10 @@ exports.signup = catchAsync(async (req, res, next) => {
   sendJwt(res, newUser, 201);
 });
 
-exports.login = catchAsync(async (req, res, next) => {});
+exports.login = catchAsync(async (req, res, next) => {
+  const user = await User.find({ email: req.body.email });
+
+  if (!user || !(await User.checkCorrectPassword)) return next();
+
+  sendJwt(res, user, 200);
+});
