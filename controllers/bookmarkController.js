@@ -4,7 +4,7 @@ const {
   createOne,
   getAll,
   getOne,
-  updateOne,
+
   deleteOne
 } = require("./handlerFactory");
 
@@ -32,7 +32,5 @@ exports.createBookmark = createOne(Bookmark);
 exports.getBookmarks = getAll(Bookmark);
 
 exports.getBookmark = getOne(Bookmark);
-
-exports.updateBookmark = updateOne(Bookmark);
 
 exports.deleteBookmark = deleteOne(Bookmark);

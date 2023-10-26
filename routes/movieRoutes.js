@@ -8,6 +8,8 @@ const {
 } = require("../controllers/movieController");
 const { protect, restrictTo } = require("../controllers/authController");
 
+const bookmarkRoutes = require("../routes/bookmarkRoutes");
+
 const router = express.Router();
 
 router.route("/:id").get(getMovie);
@@ -16,7 +18,7 @@ router.route("/id").get(getMovies);
 
 router.use(protect);
 
-router.use("/bookmark/:movieId", "");
+router.use("/bookmark/:movieId", bookmarkRoutes);
 
 router.route("/").post(restrictTo("admin"), createMovie);
 
