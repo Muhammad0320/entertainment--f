@@ -25,7 +25,7 @@ exports.getOne = Model =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findById(req.params.id);
 
-    if (!doc) return next(new AppError("There is movie with such id", 404));
+    if (!doc) return next(new AppError("There is document with such id", 404));
 
     res.status(200).json({
       status: "success",
@@ -55,7 +55,7 @@ exports.updateOne = Model =>
     });
 
     if (!updatedDoc)
-      return next(new AppError("There is movie with such id", 404));
+      return next(new AppError("There is document with such id", 404));
 
     res.status(200).json({
       status: "success",
@@ -70,7 +70,7 @@ exports.deleteOne = Model =>
     const deletedDoc = await Model.findByIdAndDelete(req.params.id);
 
     if (!deletedDoc)
-      return next(new AppError("There is movie with such id", 404));
+      return next(new AppError("There is document with such id", 404));
 
     res.status(204).json({
       status: "success"
