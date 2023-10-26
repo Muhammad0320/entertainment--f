@@ -62,13 +62,21 @@ exports.login = catchAsync(async (req, res, next) => {
   sendJwt(res, user, 200);
 });
 
-// exports.protect = catchAsync(async (req, res, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
+  // Get token
+  const token = getToken(req);
 
-//      // Get token
-//     const token = getToken(req)
+  // Verify token and decode
 
-//      // Verify token and decode
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-//      const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+  if (!decoded) return next();
 
-// } )
+  const currentUser = await User.findById(decoded.id);
+
+  if (!currentUser) return next();
+
+  req.user = currentUser;
+
+  next();
+});
